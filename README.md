@@ -1,3 +1,23 @@
+# Twister ~ Torando Cash on Arbitrum's Layer 2! [Tornado Core](https://github.com/tornadocash/tornado-core)
+
+We've brought private, cheap, and fast transactions to Arbitrum's Layer 2 network. 
+
+We've deployed the tornado core to arbitrum's layer 2, as well as some mock tokens. 
+
+### Our Deployed Contracts
+
+ARBFRAX TOKEN: 0x2802397f5073CB9067FDcF974d9164F9E3EA29f8
+
+10k MIXER: 0xBfa9987c7b7eBD56fFBd04c2CdDA3d6a30BD668B
+
+100k MIXER: 0x3cc589536B48CC1aaF102BF2C54B79d93A09A275
+
+TORNADO PROXY: 0x3aa8C01A5Ae8D4dDE49F342d35ccBC0BD6428635
+
+
+The website requires you to connect to the arbitrum kovan testnet RPC. Checkout their [testnet webpage](https://testnet.arbitrum.io/) to learn how to conenct metamask to the testnet.
+
+# REACT DOCS >>>
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
