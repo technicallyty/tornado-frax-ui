@@ -10,11 +10,11 @@ const Web3 = require("web3");
 const buildGroth16 = require("websnark/src/groth16");
 const websnarkUtils = require("websnark/src/utils");
 const { toWei, fromWei, toBN, BN } = require("web3-utils");
+const pkey = require('./build/circuits/tornadoProvingKey.bin');
 
 const ETHTornadoJSON = require("./build/contracts/ETHTornado.json");
 const withdrawCircuit = require("./build/circuits/withdraw.json");
 const MOCKERC20 = require("./build/contracts/ERC20Mock.json")
-const provingKeyBin = require("./build/circuits/withdraw_proving_key.bin");
 
 let web3, tornado, circuit, proving_key, groth16, erc20, senderAccount, netId;
 let MERKLE_TREE_HEIGHT;
@@ -191,6 +191,7 @@ async function generateProof({
 
   console.log("Generating SNARK proof");
   console.time("Proof time");
+  console.log(proving_key);
   const proofData = await websnarkUtils.genWitnessAndProve(
     groth16,
     input,
@@ -587,10 +588,8 @@ async function init(noteNetId, instance, web3) {
   let contractJson = ETHTornadoJSON;
   // circuit = await (await fetch("build/circuits/withdraw.json")).json();
   circuit = withdrawCircuit;
-
-  proving_key = await (
-    await fetch("build/circuits/tornadoProvingKey.bin")
-  ).arrayBuffer();
+  //proving_key = await (await fetch('build/circuits/tornadoProvingKey.bin')).arrayBuffer();
+  proving_key = await fetch('build/circuits/tornadoProvingKey.bin')
   console.log(proving_key);
   MERKLE_TREE_HEIGHT = 20;
   senderAccount = (await web3.eth.getAccounts())[0];
@@ -641,7 +640,7 @@ async function twister(web3, instance) {
   
 }
 
-async function getMyMoneyPls(note, web3) {
+async function getMyMoneyPls(note, web3, provingKey) {
   console.log("LETS GET THAT MONEY")
     const noteString = note
     const recipient = (await web3.eth.getAccounts())[0];
@@ -652,6 +651,7 @@ async function getMyMoneyPls(note, web3) {
       amount: amount
     }
     await init(netId, instance, web3);
+    proving_key = provingKey;
     await withdraw({ deposit, currency, amount, recipient });
 }
 
